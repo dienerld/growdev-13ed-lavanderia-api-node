@@ -1,3 +1,7 @@
 {
-    "extends" : ["dienerld/node"]
+	"extends": ["dienerld/node"],
+	"rules": {
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "on"
+	}
 }
