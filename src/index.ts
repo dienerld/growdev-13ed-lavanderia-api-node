@@ -1,4 +1,5 @@
 import express from 'express';
+import { ApartamentController } from './controllers/apartamentController';
 
 const app = express();
 
@@ -11,3 +12,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(8080, () => console.log('Servidor Iniciado'));
+
+const apartmentController = new ApartamentController();
+
+app.post('/apartments', apartmentController.create)
