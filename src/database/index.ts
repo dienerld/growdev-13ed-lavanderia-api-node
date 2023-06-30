@@ -1,3 +1,3 @@
-import { Apartment } from "../Models/Apartment.model";
+import { Apartment } from '../Models/Apartment.model';
 
-export const apartments: Apartment[] = []
+export const apartments: Apartment[] = [];

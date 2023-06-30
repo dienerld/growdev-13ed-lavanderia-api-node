@@ -23,7 +23,7 @@ export class Apartment {
   }
 
   get number(): string {
-    return this.#number
+    return this.#number;
   }
 
   toJSON() {
@@ -33,7 +33,7 @@ export class Apartment {
       residentName: this.#residentName,
       password: this.#password,
       isOccupied: this.#isOccupied,
-      bookings: this.#bookings
-    }
+      bookings: this.#bookings,
+    };
   }
 }

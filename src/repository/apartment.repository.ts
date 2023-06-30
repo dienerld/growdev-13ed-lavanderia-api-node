@@ -1,7 +1,7 @@
-import { apartments } from "../database";
+import { apartments } from '../database';
 
 export class ApartmentRepository {
-    public findByNumber(number: string) {
-        return apartments.find((ap) => ap.number === number)
-    }
+  public findByNumber(number: string) {
+    return apartments.find((ap) => ap.number === number);
+  }
 }
