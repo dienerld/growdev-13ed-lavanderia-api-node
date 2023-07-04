@@ -42,4 +42,4 @@ Tem 2 máquinas
 ### Apartamento
 
 - Criar
-- Atualizar
+- Atualizar (senha, nomeDoMorador, ocupado)

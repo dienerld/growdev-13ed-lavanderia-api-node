@@ -19,3 +19,5 @@ const apartmentController = new ApartmentController();
 app.post('/apartments', verifyDataCreateApartment, apartmentController.create);
 
 app.get('/apartments', apartmentController.listar);
+
+app.put('/apartments/:id', apartmentController.update);

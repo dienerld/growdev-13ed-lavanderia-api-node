@@ -5,6 +5,12 @@ export type CreateApartmentDTO = {
   number: string;
 };
 
+export type UpdateApartmentDTO = {
+  password?: string;
+  residentName?: string;
+  isOccupied?: boolean;
+};
+
 export class Apartment {
   #id: string;
   #number: string;
@@ -24,6 +30,26 @@ export class Apartment {
 
   get number(): string {
     return this.#number;
+  }
+
+  get id(): string {
+    return this.#id;
+  }
+
+  set password(password: string) {
+    this.#password = password;
+  }
+
+  set residentName(residentName: string) {
+    this.#residentName = residentName;
+  }
+
+  set isOccupied(isOccupied: boolean) {
+    this.#isOccupied = isOccupied;
+  }
+
+  toggleOccupied() {
+    this.#isOccupied = !this.#isOccupied;
   }
 
   toJSON() {
