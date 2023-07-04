@@ -32,6 +32,14 @@ Tem 2 máquinas
 
 ## Requisitos Funcionais
 
+### Apartamentos
+- Permitir atualizar informações quando o apartamento estiver ocupado
+- Resetar as informações do apartamento, assim que ficar vazio.
+
+### Horário
+- Não pode agendar se o apartamento estiver com o status vazio.
+
+
 ### Horário
 
 - Agendar
