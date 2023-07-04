@@ -1,5 +1,6 @@
 import express from 'express';
 import { ApartmentController } from './controllers/apartmentController';
+import { verifyDataCreateApartment } from './middlewares/verifyDataCreateApartment';
 
 const app = express();
 
@@ -15,4 +16,6 @@ app.listen(8080, () => console.log('Servidor Iniciado'));
 
 const apartmentController = new ApartmentController();
 
-app.post('/apartments', apartmentController.create);
+app.post('/apartments', verifyDataCreateApartment, apartmentController.create);
+
+app.post('/apartments', verifyDataCreateApartment, apartmentController.create);

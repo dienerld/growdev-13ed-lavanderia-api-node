@@ -6,10 +6,10 @@ export class ApartmentController {
     const { number } = req.body;
 
     const useCase = new CreateApartmentUseCase();
-    const response = await useCase.execute({
+    const { body, statusCode, success } = await useCase.execute({
       number,
     });
 
-    return res.json(response);
+    return res.status(statusCode).json({ data: body, success });
   }
 }

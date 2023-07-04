@@ -1,12 +1,6 @@
 import { Apartment, CreateApartmentDTO } from '../Models/Apartment.model';
-import { apartments } from '../database';
+import { HttpResponse, IHttpResponse } from '../helpers/httpResponse';
 import { ApartmentRepository } from '../repository/apartment.repository';
-
-type ResponseCreateApartment = {
-  success: boolean;
-  message: string;
-  data?: any;
-};
 
 export class CreateApartmentUseCase {
   private repository: ApartmentRepository;
@@ -15,26 +9,16 @@ export class CreateApartmentUseCase {
     this.repository = new ApartmentRepository();
   }
 
-  public async execute(
-    data: CreateApartmentDTO,
-  ): Promise<ResponseCreateApartment> {
+  public async execute(data: CreateApartmentDTO): Promise<IHttpResponse> {
     const apartmentAlreadyExists = this.repository.findByNumber(data.number);
 
     if (apartmentAlreadyExists) {
-      return {
-        success: false,
-        message: 'O apartamento já está cadastrado.',
-      };
+      return HttpResponse.badRequest(new Error('Apartamento já existente'));
     }
-
     const ap = new Apartment(data);
 
-    apartments.push(ap);
+    this.repository.saveApartment(ap);
 
-    return {
-      success: true,
-      message: 'Apartamento cadastrado com sucesso.',
-      data: ap.toJSON(),
-    };
+    return HttpResponse.created(ap.toJSON());
   }
 }
