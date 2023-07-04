@@ -9,4 +9,8 @@ export class ApartmentRepository {
   public saveApartment(apartment: Apartment) {
     apartments.push(apartment);
   }
+
+  public listApartment() {
+    return apartments;
+  }
 }

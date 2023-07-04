@@ -18,4 +18,4 @@ const apartmentController = new ApartmentController();
 
 app.post('/apartments', verifyDataCreateApartment, apartmentController.create);
 
-app.post('/apartments', verifyDataCreateApartment, apartmentController.create);
+app.get('/apartments', apartmentController.listar);
