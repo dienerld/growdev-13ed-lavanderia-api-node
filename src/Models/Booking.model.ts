@@ -24,6 +24,18 @@ export class Booking {
     this.#userId = userId;
   }
 
+  get date(): Date {
+    return this.#date;
+  }
+
+  get time(): ETime {
+    return this.#time;
+  }
+
+  get machine(): EMachine {
+    return this.#machine;
+  }
+
   toJSON() {
     return {
       id: this.#id,

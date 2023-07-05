@@ -10,8 +10,19 @@ export class CreateBookingUseCase {
   }
 
   async execute(data: CreateBookingDTO): Promise<IHttpResponse> {
-    const booking = new Booking(data);
+    const bookingsDate = await this.repository.findByDate(data.date);
 
+    const bookingsTime = bookingsDate.filter((b) => b.time === data.time);
+
+    const alreadyBooked = bookingsTime.some((b) => b.machine === data.machine);
+
+    if (alreadyBooked) {
+      return HttpResponse.badRequest(
+        new Error('Este horário já foi reservado'),
+      );
+    }
+
+    const booking = new Booking(data);
     await this.repository.save(booking);
 
     return HttpResponse.created(booking.toJSON());
