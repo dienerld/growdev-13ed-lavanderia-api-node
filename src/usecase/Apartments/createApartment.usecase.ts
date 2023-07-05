@@ -1,6 +1,6 @@
-import { Apartment, CreateApartmentDTO } from '../Models/Apartment.model';
-import { HttpResponse, IHttpResponse } from '../helpers/httpResponse';
-import { ApartmentRepository } from '../repository/apartment.repository';
+import { Apartment, CreateApartmentDTO } from '../../Models/Apartment.model';
+import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
+import { ApartmentRepository } from '../../repository/apartment.repository';
 
 export class CreateApartmentUseCase {
   private repository: ApartmentRepository;

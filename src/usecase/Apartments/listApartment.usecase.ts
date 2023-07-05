@@ -1,5 +1,5 @@
-import { HttpResponse, IHttpResponse } from '../helpers/httpResponse';
-import { ApartmentRepository } from '../repository/apartment.repository';
+import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
+import { ApartmentRepository } from '../../repository/apartment.repository';
 
 export class ListApartmentsUseCase {
   private repository: ApartmentRepository;

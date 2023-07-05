@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CreateApartmentUseCase } from '../usecase/createApartment.usecase';
-import { ListApartmentsUseCase } from '../usecase/listApartment.usecase';
-import { UpdateApartmentUseCase } from '../usecase/updateApartment.usecase';
+import { CreateApartmentUseCase } from '../usecase/Apartments/createApartment.usecase';
+import { ListApartmentsUseCase } from '../usecase/Apartments/listApartment.usecase';
+import { UpdateApartmentUseCase } from '../usecase/Apartments/updateApartment.usecase';
 import { UpdateApartmentDTO } from './../Models/Apartment.model';
 
 export class ApartmentController {
