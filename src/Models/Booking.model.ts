@@ -2,7 +2,7 @@ import { randomUUID as UUIDv4 } from 'node:crypto';
 import { EMachine } from '../Enums/machine.enum';
 import { ETime } from '../Enums/time.enum';
 
-type CreateBookingDTO = {
+export type CreateBookingDTO = {
   date: Date;
   time: ETime;
   machine: EMachine;
@@ -22,5 +22,15 @@ export class Booking {
     this.#time = time;
     this.#machine = machine;
     this.#userId = userId;
+  }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      date: this.#date,
+      time: this.#time,
+      machine: this.#machine,
+      userId: this.#userId,
+    };
   }
 }
