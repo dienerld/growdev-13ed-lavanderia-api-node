@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateBookingDTO } from '../Models/Booking.model';
 import { CreateBookingUseCase } from '../usecase/Bookings/create.usecase';
+import { ListBookingUseCase } from '../usecase/Bookings/list.usecase';
 
 export class BookingController {
   async create(req: Request, res: Response) {
@@ -13,6 +14,16 @@ export class BookingController {
       time,
       userId,
     });
+
+    return res.status(statusCode).json({
+      data: body,
+      success,
+    });
+  }
+
+  async list(req: Request, res: Response) {
+    const usecase = new ListBookingUseCase();
+    const { body, statusCode, success } = await usecase.execute();
 
     return res.status(statusCode).json({
       data: body,

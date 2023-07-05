@@ -28,3 +28,5 @@ app.put('/apartments/:id', apartmentController.update);
 const bookingController = new BookingController();
 
 app.post('/bookings', bookingController.create);
+
+app.get('/bookings', bookingController.list);

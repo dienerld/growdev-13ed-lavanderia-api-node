@@ -5,4 +5,8 @@ export class BookingRepository {
   async save(booking: Booking) {
     bookings.push(booking);
   }
+
+  async find() {
+    return bookings;
+  }
 }
