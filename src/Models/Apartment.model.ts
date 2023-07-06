@@ -36,6 +36,10 @@ export class Apartment {
     return this.#id;
   }
 
+  get isOccupied(): boolean {
+    return this.#isOccupied;
+  }
+
   set password(password: string) {
     this.#password = password;
   }

@@ -2,6 +2,7 @@ import express from 'express';
 import { ApartmentController } from './controllers/apartmentController';
 import { BookingController } from './controllers/bookingController';
 import { verifyDataCreateApartment } from './middlewares/verifyDataCreateApartment';
+import { verifyDataCreateBooking } from './middlewares/verifyDataCreateBooking';
 
 const app = express();
 
@@ -27,6 +28,6 @@ app.put('/apartments/:id', apartmentController.update);
 
 const bookingController = new BookingController();
 
-app.post('/bookings', bookingController.create);
+app.post('/bookings', verifyDataCreateBooking, bookingController.create);
 
 app.get('/bookings', bookingController.list);
