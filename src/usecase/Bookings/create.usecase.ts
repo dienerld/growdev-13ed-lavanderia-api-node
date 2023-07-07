@@ -29,6 +29,18 @@ export class CreateBookingUseCase {
 
     const alreadyBooked = bookingsTime.some((b) => b.machine === data.machine);
 
+    const bookingsUser = await this.repository.findByRangeDate(
+      data.date,
+      4,
+      data.userId,
+    );
+
+    if (bookingsUser.length > 0) {
+      return HttpResponse.badRequest(
+        new Error('O seu agendamento já está muito próximo.'),
+      );
+    }
+
     if (alreadyBooked) {
       return HttpResponse.badRequest(
         new Error('Este horário já foi reservado'),
