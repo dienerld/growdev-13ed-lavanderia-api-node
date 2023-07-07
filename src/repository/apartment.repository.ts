@@ -1,5 +1,5 @@
-import { Apartment, UpdateApartmentDTO } from '../Models/Apartment.model';
-import { apartments } from '../database';
+import { Apartment, UpdateApartmentDTO } from "../Models/Apartment.model";
+import { apartments } from "../database";
 
 export class ApartmentRepository {
   public findByNumber(number: string) {
@@ -20,7 +20,7 @@ export class ApartmentRepository {
     });
 
     if (indexApartment === -1) {
-      throw new Error('Apartamento não encontrado.');
+      throw new Error("Apartamento não encontrado.");
     }
 
     if (data.residentName) {

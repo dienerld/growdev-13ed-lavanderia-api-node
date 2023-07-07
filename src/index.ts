@@ -3,6 +3,7 @@ import { ApartmentController } from './controllers/apartmentController';
 import { BookingController } from './controllers/bookingController';
 import { verifyDataCreateApartment } from './middlewares/verifyDataCreateApartment';
 import { verifyDataCreateBooking } from './middlewares/verifyDataCreateBooking';
+import { verifyIsUuid } from './middlewares/verifyIsUuid';
 
 const app = express();
 
@@ -31,3 +32,5 @@ const bookingController = new BookingController();
 app.post('/bookings', verifyDataCreateBooking, bookingController.create);
 
 app.get('/bookings', bookingController.list);
+
+app.delete('/bookings/:id', verifyIsUuid, bookingController.delete);
