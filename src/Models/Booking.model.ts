@@ -1,4 +1,4 @@
-import { randomUUID as UUIDv4 } from 'node:crypto';
+import { randomUUID as UUIDv4 } from 'crypto';
 import { EMachine } from '../Enums/machine.enum';
 import { ETime } from '../Enums/time.enum';
 

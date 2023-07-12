@@ -1,4 +1,4 @@
-import { randomUUID as UUIDv4 } from 'node:crypto';
+import { randomUUID as UUIDv4 } from 'crypto';
 import { Booking } from './Booking.model';
 
 export type CreateApartmentDTO = {
