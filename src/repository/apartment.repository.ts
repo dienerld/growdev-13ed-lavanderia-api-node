@@ -20,6 +20,7 @@ export class ApartmentRepository {
 
     if (occupied !== undefined) {
       console.log('occupied', Boolean(occupied), typeof occupied);
+      // @ts-expect-error
       occupied = occupied === 'true';
       listFiltered = listFiltered.filter((ap) => ap.isOccupied === occupied);
     }
