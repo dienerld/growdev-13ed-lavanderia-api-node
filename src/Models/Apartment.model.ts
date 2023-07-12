@@ -40,6 +40,10 @@ export class Apartment {
     return this.#isOccupied;
   }
 
+  get residentName(): string {
+    return this.#residentName;
+  }
+
   set password(password: string) {
     this.#password = password;
   }

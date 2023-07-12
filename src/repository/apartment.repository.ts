@@ -1,5 +1,6 @@
-import { Apartment, UpdateApartmentDTO } from "../Models/Apartment.model";
-import { apartments } from "../database";
+import { Apartment, UpdateApartmentDTO } from '../Models/Apartment.model';
+import { apartments } from '../database';
+import { FilterApartment } from '../usecase/Apartments/listApartment.usecase';
 
 export class ApartmentRepository {
   public findByNumber(number: string) {
@@ -10,8 +11,26 @@ export class ApartmentRepository {
     apartments.push(apartment);
   }
 
-  public listApartment() {
-    return apartments;
+  public listApartment({ apartment, occupied, resident }: FilterApartment) {
+    let listFiltered = apartments;
+
+    if (apartment) {
+      listFiltered = listFiltered.filter((ap) => ap.number.includes(apartment));
+    }
+
+    if (occupied !== undefined) {
+      console.log('occupied', Boolean(occupied), typeof occupied);
+      occupied = occupied === 'true';
+      listFiltered = listFiltered.filter((ap) => ap.isOccupied === occupied);
+    }
+
+    if (resident) {
+      listFiltered = listFiltered.filter((ap) =>
+        ap.residentName.includes(resident),
+      );
+    }
+
+    return listFiltered;
   }
 
   public updateApartment(id: string, data: UpdateApartmentDTO) {
@@ -20,7 +39,7 @@ export class ApartmentRepository {
     });
 
     if (indexApartment === -1) {
-      throw new Error("Apartamento não encontrado.");
+      throw new Error('Apartamento não encontrado.');
     }
 
     if (data.residentName) {

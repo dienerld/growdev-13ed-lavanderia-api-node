@@ -36,6 +36,7 @@ Tem 2 máquinas
 
 - Permitir atualizar informações quando o apartamento estiver ocupado
 - Resetar as informações do apartamento, assim que ficar vazio.
+- Filtrar apartamentos por ocupação(boolean), nome do morador(string) e número do ap(string)
 
 ### Horário
 
