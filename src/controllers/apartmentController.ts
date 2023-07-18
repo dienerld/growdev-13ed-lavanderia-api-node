@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { CreateApartmentUseCase } from '../usecase/Apartments/createApartment.usecase';
+import { CreateApartmentUseCase } from '../usecase/apartments/createApartment.usecase';
 import {
   FilterApartment,
   ListApartmentsUseCase,
-} from '../usecase/Apartments/listApartment.usecase';
-import { UpdateApartmentUseCase } from '../usecase/Apartments/updateApartment.usecase';
-import { UpdateApartmentDTO } from './../Models/Apartment.model';
+} from '../usecase/apartments/listApartment.usecase';
+import { UpdateApartmentUseCase } from '../usecase/apartments/updateApartment.usecase';
+import { UpdateApartmentDTO } from '../models/apartment.model';
 
 export class ApartmentController {
   public async create(req: Request, res: Response) {

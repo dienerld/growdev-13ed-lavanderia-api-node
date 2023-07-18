@@ -1,4 +1,4 @@
-import { UpdateApartmentDTO } from '../../Models/Apartment.model';
+import { UpdateApartmentDTO } from '../../models/apartment.model';
 import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
 import { ApartmentRepository } from '../../repository/apartment.repository';
 

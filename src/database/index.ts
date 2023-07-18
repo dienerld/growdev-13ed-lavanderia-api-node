@@ -1,5 +1,5 @@
-import { Apartment } from '../Models/Apartment.model';
-import { Booking } from '../Models/Booking.model';
+import { Apartment } from '../models/apartment.model';
+import { Booking } from '../models/booking.model';
 
 export const apartments: Apartment[] = [new Apartment({ number: '123' })];
 

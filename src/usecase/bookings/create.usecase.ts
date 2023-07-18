@@ -1,4 +1,4 @@
-import { Booking, CreateBookingDTO } from '../../Models/Booking.model';
+import { Booking, CreateBookingDTO } from '../../models/booking.model';
 import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
 import { ApartmentRepository } from '../../repository/apartment.repository';
 import { BookingRepository } from '../../repository/booking.repository';

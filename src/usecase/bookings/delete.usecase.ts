@@ -1,5 +1,5 @@
-import { HttpResponse } from "../../helpers/httpResponse";
-import { BookingRepository } from "../../repository/booking.repository";
+import { HttpResponse } from '../../helpers/httpResponse';
+import { BookingRepository } from '../../repository/booking.repository';
 
 export class DeleteBookingUseCase {
   private repository: BookingRepository;
@@ -11,7 +11,7 @@ export class DeleteBookingUseCase {
   async execute(id: string) {
     try {
       await this.repository.deleteById(id);
-      return HttpResponse.ok("Agendamento excluído com sucesso");
+      return HttpResponse.ok('Agendamento excluído com sucesso');
     } catch (err: any) {
       return HttpResponse.badRequest(err);
     }

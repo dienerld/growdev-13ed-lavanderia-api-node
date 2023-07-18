@@ -1,4 +1,4 @@
-import { Apartment, CreateApartmentDTO } from '../../Models/Apartment.model';
+import { Apartment, CreateApartmentDTO } from '../../models/apartment.model';
 import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
 import { ApartmentRepository } from '../../repository/apartment.repository';
 

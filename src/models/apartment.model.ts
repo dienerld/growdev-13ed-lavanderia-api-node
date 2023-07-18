@@ -1,5 +1,5 @@
 import { randomUUID as UUIDv4 } from 'crypto';
-import { Booking } from './Booking.model';
+import { Booking } from './booking.model';
 
 export type CreateApartmentDTO = {
   number: string;

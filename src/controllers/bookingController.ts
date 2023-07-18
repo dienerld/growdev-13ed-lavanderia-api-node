@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { CreateBookingDTO } from '../Models/Booking.model';
-import { CreateBookingUseCase } from '../usecase/Bookings/create.usecase';
-import { DeleteBookingUseCase } from '../usecase/Bookings/delete.usecase';
-import { ListBookingUseCase } from '../usecase/Bookings/list.usecase';
+import { CreateBookingDTO } from '../models/booking.model';
+import { CreateBookingUseCase } from '../usecase/bookings/create.usecase';
+import { DeleteBookingUseCase } from '../usecase/bookings/delete.usecase';
+import { ListBookingUseCase } from '../usecase/bookings/list.usecase';
 
 export class BookingController {
   async create(req: Request, res: Response) {

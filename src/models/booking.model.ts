@@ -1,6 +1,6 @@
 import { randomUUID as UUIDv4 } from 'crypto';
-import { EMachine } from '../Enums/machine.enum';
-import { ETime } from '../Enums/time.enum';
+import { EMachine } from '../enums/machine.enum';
+import { ETime } from '../enums/time.enum';
 
 export type CreateBookingDTO = {
   date: Date;

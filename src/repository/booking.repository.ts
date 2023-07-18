@@ -1,6 +1,6 @@
 import { add, differenceInDays, isAfter, isBefore, sub } from 'date-fns';
 
-import { Booking } from '../Models/Booking.model';
+import { Booking } from '../models/booking.model';
 import { bookings } from '../database';
 
 export class BookingRepository {

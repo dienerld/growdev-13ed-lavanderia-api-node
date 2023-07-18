@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
-import { EMachine } from '../Enums/machine.enum';
-import { ETime } from '../Enums/time.enum';
+import { EMachine } from '../enums/machine.enum';
+import { ETime } from '../enums/time.enum';
 import { HttpResponse } from '../helpers/httpResponse';
 
 const schema = z.object({

@@ -1,6 +1,6 @@
-import { Apartment, UpdateApartmentDTO } from '../Models/Apartment.model';
+import { Apartment, UpdateApartmentDTO } from '../models/apartment.model';
 import { apartments } from '../database';
-import { FilterApartment } from '../usecase/Apartments/listApartment.usecase';
+import { FilterApartment } from '../usecase/apartments/listApartment.usecase';
 
 export class ApartmentRepository {
   public findByNumber(number: string) {
