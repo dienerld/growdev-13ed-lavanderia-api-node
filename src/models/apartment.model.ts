@@ -11,6 +11,13 @@ export type UpdateApartmentDTO = {
   isOccupied?: boolean;
 };
 
+export type OutputApartmentDTO = {
+  id: string;
+  number: string;
+  residentName: string;
+  isOccupied: boolean;
+};
+
 export class Apartment {
   #id: string;
   #number: string;
@@ -44,6 +51,10 @@ export class Apartment {
     return this.#residentName;
   }
 
+  get password(): string {
+    return this.#password;
+  }
+
   set password(password: string) {
     this.#password = password;
   }
@@ -60,14 +71,12 @@ export class Apartment {
     this.#isOccupied = !this.#isOccupied;
   }
 
-  toJSON() {
+  toJSON(): OutputApartmentDTO {
     return {
       id: this.#id,
       number: this.#number,
       residentName: this.#residentName,
-      password: this.#password,
       isOccupied: this.#isOccupied,
-      bookings: this.#bookings,
     };
   }
 }
