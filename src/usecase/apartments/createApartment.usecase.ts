@@ -1,5 +1,5 @@
-import { Apartment, CreateApartmentDTO } from '../../models/apartment.model';
 import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
+import { Apartment, CreateApartmentDTO } from '../../models/apartment.model';
 import { ApartmentRepository } from '../../repository/apartment.repository';
 
 export class CreateApartmentUseCase {
@@ -10,7 +10,9 @@ export class CreateApartmentUseCase {
   }
 
   public async execute(data: CreateApartmentDTO): Promise<IHttpResponse> {
-    const apartmentAlreadyExists = this.repository.findByNumber(data.number);
+    const apartmentAlreadyExists = await this.repository.findByNumber(
+      data.number,
+    );
 
     if (apartmentAlreadyExists) {
       return HttpResponse.badRequest(new Error('Apartamento já existente'));

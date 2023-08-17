@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import { UpdateApartmentDTO } from '../models/apartment.model';
 import { CreateApartmentUseCase } from '../usecase/apartments/createApartment.usecase';
+import { ListAllApartmentsUseCase } from '../usecase/apartments/listAllApartments';
 import {
   FilterApartment,
   ListApartmentsUseCase,
 } from '../usecase/apartments/listApartment.usecase';
 import { UpdateApartmentUseCase } from '../usecase/apartments/updateApartment.usecase';
-import { UpdateApartmentDTO } from '../models/apartment.model';
 
 export class ApartmentController {
   public async create(req: Request, res: Response) {
@@ -15,6 +16,14 @@ export class ApartmentController {
     const { body, statusCode, success } = await useCase.execute({
       number,
     });
+
+    return res.status(statusCode).json({ data: body, success });
+  }
+
+  public async listAll(req: Request, res: Response) {
+    const useCase = new ListAllApartmentsUseCase();
+
+    const { body, statusCode, success } = await useCase.execute();
 
     return res.status(statusCode).json({ data: body, success });
   }

@@ -7,15 +7,15 @@ export type FilterApartment = {
   apartment?: string;
 };
 
-export class ListApartmentsUseCase {
+export class ListAllApartmentsUseCase {
   private repository: ApartmentRepository;
 
   constructor() {
     this.repository = new ApartmentRepository();
   }
 
-  public async execute(filters: FilterApartment): Promise<IHttpResponse> {
-    const apartments = await this.repository.listApartment(filters);
+  public async execute(): Promise<IHttpResponse> {
+    const apartments = await this.repository.listAllApartments();
 
     return HttpResponse.ok(apartments);
   }

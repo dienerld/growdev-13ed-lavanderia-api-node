@@ -35,6 +35,18 @@ export class Apartment {
     this.#isOccupied = false;
   }
 
+  static mapDb(data: any) {
+    const apartment = new Apartment({ number: data.number });
+
+    apartment.#id = data.id;
+    apartment.#isOccupied = data.is_occupied;
+    apartment.#number = data.number;
+    apartment.#residentName = data.name_resident;
+    apartment.password = data.password;
+
+    return apartment;
+  }
+
   get number(): string {
     return this.#number;
   }

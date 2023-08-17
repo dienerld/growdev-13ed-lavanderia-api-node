@@ -1,12 +1,14 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 
 import { ApartmentController } from './controllers/apartmentController';
+import { AuthController } from './controllers/authController';
 import { BookingController } from './controllers/bookingController';
+import { pgHelper } from './database/pg-helper';
 import { verifyDataCreateApartment } from './middlewares/verifyDataCreateApartment';
 import { verifyDataCreateBooking } from './middlewares/verifyDataCreateBooking';
 import { verifyIsUuid } from './middlewares/verifyIsUuid';
-import { AuthController } from './controllers/authController';
+import { ApartmentRepository } from './repository/apartment.repository';
 
 const app = express();
 
@@ -19,15 +21,29 @@ app.get('/', (req, res) => {
   return res.send('Hello World');
 });
 
-app.listen(8080, () => console.log('Servidor Iniciado'));
+pgHelper
+  .connect()
+  .then(() => {
+    app.listen(8080, () => console.log('Servidor Iniciado'));
+  })
+  .catch((err) => console.log(err));
 
 const apartmentController = new ApartmentController();
+const apartmentRepository = new ApartmentRepository();
 
 app.post('/apartments', verifyDataCreateApartment, apartmentController.create);
 
-app.get('/apartments', apartmentController.list);
+app.get('/apartments', apartmentController.listAll);
+
+app.get('/apartments/filter', apartmentController.list);
 
 app.put('/apartments/:id', apartmentController.update);
+
+app.delete('/apartments/:id', async (req, res) => {
+  await apartmentRepository.deleteApartment(req.params.id);
+
+  return res.status(204).send();
+});
 
 // Bookings
 
