@@ -24,6 +24,18 @@ export class Booking {
     this.#userId = userId;
   }
 
+  static mapDb(data: any) {
+    const booking = new Booking(data);
+
+    booking.#id = data.id;
+    booking.#date = data.date;
+    booking.#time = ETime[data.hour as 'AFTERNOON'];
+    booking.#machine = EMachine[data.machine as 'A'];
+    booking.#userId = data.apartment_fk;
+
+    return booking;
+  }
+
   get date(): Date {
     return this.#date;
   }

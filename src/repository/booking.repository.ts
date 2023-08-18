@@ -1,23 +1,32 @@
-import { add, differenceInDays, isAfter, isBefore, sub } from 'date-fns';
+import { add, sub } from 'date-fns';
+import { pgHelper } from '../database/pg-helper';
 
-import { Booking } from '../models/booking.model';
+import format from 'date-fns/format';
 import { bookings } from '../database';
+import { Booking } from '../models/booking.model';
 
 export class BookingRepository {
   async save(booking: Booking) {
-    bookings.push(booking);
+    await pgHelper.client.query(
+      'insert into bookings (id, apartment_fk, date, hour, machine) values ($1, $2, $3, $4, $5)',
+      [booking.id, booking.userId, booking.date, booking.time, booking.machine],
+    );
   }
 
   async find() {
-    return bookings;
+    const bookings = await pgHelper.client.query('select * from bookings');
+    console.log(bookings);
+
+    return bookings.map(Booking.mapDb);
   }
 
   async findByDate(date: Date): Promise<Booking[]> {
-    const results = bookings.filter(
-      (b) => differenceInDays(new Date(b.date), new Date(date)) === 0,
+    const bookings = await pgHelper.client.query(
+      'select * from bookings b where b.date = $1',
+      [format(date, 'yyyy-MM-dd')],
     );
 
-    return results;
+    return bookings.map(Booking.mapDb);
   }
 
   async deleteById(id: string) {
@@ -33,11 +42,11 @@ export class BookingRepository {
   async findByRangeDate(date: Date, range: number, userId: string) {
     const rangeMinus = sub(date, { days: range });
     const rangePlus = add(date, { days: range });
-    const bookingsUser = bookings.filter((b) => b.userId === userId);
-    const results = bookingsUser
-      .filter((b) => isAfter(b.date, rangeMinus))
-      .filter((b) => isBefore(b.date, rangePlus));
+    const bookings = await pgHelper.client.query(
+      'select * from bookings b where apartment_fk = $1 and date between $2 and $3',
+      [userId, rangeMinus, rangePlus],
+    );
 
-    return results;
+    return bookings.map(Booking.mapDb);
   }
 }

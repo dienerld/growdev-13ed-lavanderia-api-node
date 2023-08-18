@@ -1,4 +1,4 @@
 export enum EMachine {
-  A = 'A',
-  B = 'B',
+  A,
+  B,
 }

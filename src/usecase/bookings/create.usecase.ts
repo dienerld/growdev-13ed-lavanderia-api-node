@@ -1,5 +1,5 @@
-import { Booking, CreateBookingDTO } from '../../models/booking.model';
 import { HttpResponse, IHttpResponse } from '../../helpers/httpResponse';
+import { Booking, CreateBookingDTO } from '../../models/booking.model';
 import { ApartmentRepository } from '../../repository/apartment.repository';
 import { BookingRepository } from '../../repository/booking.repository';
 
@@ -13,7 +13,7 @@ export class CreateBookingUseCase {
   }
 
   async execute(data: CreateBookingDTO): Promise<IHttpResponse> {
-    const apartment = this.apartmentRepository.findByNumber(data.userId);
+    const apartment = await this.apartmentRepository.findByNumber(data.userId);
 
     if (!apartment) {
       return HttpResponse.badRequest(new Error('Apartamento inexistente'));
@@ -29,6 +29,12 @@ export class CreateBookingUseCase {
 
     const alreadyBooked = bookingsTime.some((b) => b.machine === data.machine);
 
+    if (alreadyBooked) {
+      return HttpResponse.badRequest(
+        new Error('Este horário já foi reservado'),
+      );
+    }
+
     const bookingsUser = await this.repository.findByRangeDate(
       data.date,
       4,
@@ -38,12 +44,6 @@ export class CreateBookingUseCase {
     if (bookingsUser.length > 0) {
       return HttpResponse.badRequest(
         new Error('O seu agendamento já está muito próximo.'),
-      );
-    }
-
-    if (alreadyBooked) {
-      return HttpResponse.badRequest(
-        new Error('Este horário já foi reservado'),
       );
     }
 

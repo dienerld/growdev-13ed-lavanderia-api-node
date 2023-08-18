@@ -5,7 +5,10 @@ import { FilterApartment } from '../usecase/apartments/listApartment.usecase';
 
 export class ApartmentRepository {
   public async listAllApartments() {
-    const apartments = await pgHelper.client.query('select * from apartments');
+    const apartments = await pgHelper.client.query(
+      'select * from apartments a inner join bookings b on a.number = b.apartment_fk',
+    );
+    console.log(apartments);
 
     return apartments.map(Apartment.mapDb);
   }
