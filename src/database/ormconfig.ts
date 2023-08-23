@@ -7,6 +7,7 @@ const config: DataSourceOptions = {
   ssl: {
     rejectUnauthorized: false,
   },
+  entities: ['./entities/*.entity.{ts,js}'],
 };
 
 export default config;
