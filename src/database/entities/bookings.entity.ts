@@ -5,15 +5,15 @@ import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'bookings' })
 export class BookingsEntity extends BaseEntity {
-  @Column({ enum: ETime })
+  @Column({ type: 'int', enum: ETime, name: 'hour' })
   time!: ETime;
 
   @Column()
   date!: Date;
 
-  @Column({ enum: EMachine })
+  @Column({ type: 'int', enum: EMachine })
   machine!: EMachine;
 
-  @Column({ name: 'user_id' })
-  userId!: boolean;
+  @Column({ name: 'apartment_fk' })
+  userId!: string;
 }

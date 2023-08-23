@@ -1,4 +1,5 @@
 import { randomUUID as UUIDv4 } from 'crypto';
+import { BookingsEntity } from '../database/entities/bookings.entity';
 import { EMachine } from '../enums/machine.enum';
 import { ETime } from '../enums/time.enum';
 
@@ -24,14 +25,16 @@ export class Booking {
     this.#userId = userId;
   }
 
-  static mapDb(data: any) {
+  static mapDb(data: BookingsEntity) {
     const booking = new Booking(data);
 
     booking.#id = data.id;
     booking.#date = data.date;
-    booking.#time = ETime[data.hour as 'AFTERNOON'];
-    booking.#machine = EMachine[data.machine as 'A'];
-    booking.#userId = data.apartment_fk;
+    // @ts-expect-error
+    booking.#time = ETime[data.time];
+    // @ts-expect-error
+    booking.#machine = EMachine[data.machine];
+    booking.#userId = data.userId;
 
     return booking;
   }

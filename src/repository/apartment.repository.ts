@@ -1,23 +1,29 @@
-import { apartments } from '../database';
+import { ApartmentEntity } from '../database/entities/apartment.entity';
 import { pgHelper } from '../database/pg-helper';
 import { Apartment, UpdateApartmentDTO } from '../models/apartment.model';
 import { FilterApartment } from '../usecase/apartments/listApartment.usecase';
 
 export class ApartmentRepository {
+  constructor(private manager = pgHelper.client.manager) {}
+
   public async listAllApartments() {
-    const apartments = await pgHelper.client.query(
-      'select * from apartments a inner join bookings b on a.number = b.apartment_fk',
-    );
-    console.log(apartments);
+    const apartments = await this.manager.find(ApartmentEntity);
+
+    // const apartments = await pgHelper.client.query(
+    //   'select * from apartments a inner join bookings b on a.number = b.apartment_fk',
+    // );
+    // console.log(apartments);
 
     return apartments.map(Apartment.mapDb);
   }
 
   public async findByNumber(number: string) {
-    const [apartment] = await pgHelper.client.query(
-      'select * from apartments a where a.number = $1',
-      [number],
-    );
+    const apartment = await this.manager.findOneBy(ApartmentEntity, { number });
+
+    // const [apartment] = await pgHelper.client.query(
+    //   'select * from apartments a where a.number = $1',
+    //   [number],
+    // );
 
     return apartment ? Apartment.mapDb(apartment) : undefined;
   }
@@ -36,33 +42,29 @@ export class ApartmentRepository {
   }
 
   public listApartment({ apartment, occupied, resident }: FilterApartment) {
-    let listFiltered = apartments;
+    const filters: any = {};
 
     if (apartment) {
-      listFiltered = listFiltered.filter((ap) => ap.number.includes(apartment));
+      filters.number = apartment;
     }
 
     if (occupied !== undefined) {
-      console.log('occupied', Boolean(occupied), typeof occupied);
-      // @ts-expect-error
-      occupied = occupied === 'true';
-      listFiltered = listFiltered.filter((ap) => ap.isOccupied === occupied);
+      filters.isOccupied = occupied;
     }
 
     if (resident) {
-      listFiltered = listFiltered.filter((ap) =>
-        ap.residentName.includes(resident),
-      );
+      filters.resident = resident;
     }
 
-    return listFiltered;
+    const listaFiltrada = this.manager.find(ApartmentEntity, {
+      where: filters,
+    });
+
+    return listaFiltrada;
   }
 
   public async updateApartment(id: string, data: UpdateApartmentDTO) {
-    const [apartmentDb] = await pgHelper.client.query(
-      'select * from apartments a where a.id = $1 ',
-      [id],
-    );
+    const apartmentDb = await this.manager.findOneBy(ApartmentEntity, { id });
 
     if (!apartmentDb) {
       throw new Error('Apartamento não encontrado.');
@@ -82,27 +84,20 @@ export class ApartmentRepository {
       apartment.isOccupied = data.isOccupied;
     }
 
-    await pgHelper.client.query(
-      'update apartments set name_resident = $1, password = $2, is_occupied = $3 where id = $4',
-      [
-        apartment.residentName,
-        apartment.password,
-        apartment.isOccupied,
-        apartment.id,
-      ],
+    await this.manager.update(
+      ApartmentEntity,
+      id,
+      apartment.toJSONWithPassword(),
     );
   }
 
   public async deleteApartment(id: string) {
-    const [apartment] = await pgHelper.client.query(
-      'select * from apartments a where a.id = $1',
-      [id],
-    );
+    const apartment = await this.manager.findOneBy(ApartmentEntity, { id });
 
     if (!apartment) {
       throw new Error();
     }
 
-    await pgHelper.client.query('delete from apartments where id = $1 ', [id]);
+    await this.manager.delete(ApartmentEntity, id);
   }
 }

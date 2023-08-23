@@ -1,4 +1,5 @@
 import { randomUUID as UUIDv4 } from 'crypto';
+import { ApartmentEntity } from '../database/entities/apartment.entity';
 import { Booking } from './booking.model';
 
 export type CreateApartmentDTO = {
@@ -35,13 +36,13 @@ export class Apartment {
     this.#isOccupied = false;
   }
 
-  static mapDb(data: any) {
+  static mapDb(data: ApartmentEntity) {
     const apartment = new Apartment({ number: data.number });
 
     apartment.#id = data.id;
-    apartment.#isOccupied = data.is_occupied;
+    apartment.#isOccupied = data.isOccupied;
     apartment.#number = data.number;
-    apartment.#residentName = data.name_resident;
+    apartment.#residentName = data.residentName;
     apartment.password = data.password;
 
     return apartment;
@@ -89,6 +90,15 @@ export class Apartment {
       number: this.#number,
       residentName: this.#residentName,
       isOccupied: this.#isOccupied,
+    };
+  }
+
+  toJSONWithPassword() {
+    const json = this.toJSON();
+
+    return {
+      ...json,
+      password: this.#password,
     };
   }
 }

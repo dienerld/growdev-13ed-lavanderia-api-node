@@ -1,5 +1,4 @@
 import { CreateDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
-import 'v4';
 
 export abstract class BaseEntity {
   @PrimaryColumn()
