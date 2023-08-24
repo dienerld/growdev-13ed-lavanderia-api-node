@@ -7,7 +7,11 @@ export class ApartmentRepository {
   constructor(private manager = pgHelper.client.manager) {}
 
   public async listAllApartments() {
-    const apartments = await this.manager.find(ApartmentEntity);
+    const apartments = await this.manager.find(ApartmentEntity, {
+      relations: {
+        bookings: true,
+      },
+    });
 
     // const apartments = await pgHelper.client.query(
     //   'select * from apartments a inner join bookings b on a.number = b.apartment_fk',
@@ -29,16 +33,7 @@ export class ApartmentRepository {
   }
 
   public async saveApartment(apartment: Apartment) {
-    await pgHelper.client.query(
-      'insert into apartments(id, is_occupied,number, name_resident,password) values ($1, $2, $3, $4, $5) ',
-      [
-        apartment.id,
-        apartment.isOccupied,
-        apartment.number,
-        apartment.residentName,
-        apartment.password,
-      ],
-    );
+    await this.manager.save(ApartmentEntity, apartment);
   }
 
   public listApartment({ apartment, occupied, resident }: FilterApartment) {
@@ -58,6 +53,9 @@ export class ApartmentRepository {
 
     const listaFiltrada = this.manager.find(ApartmentEntity, {
       where: filters,
+      relations: {
+        bookings: true,
+      },
     });
 
     return listaFiltrada;

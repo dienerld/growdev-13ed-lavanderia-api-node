@@ -1,6 +1,6 @@
 import { randomUUID as UUIDv4 } from 'crypto';
 import { ApartmentEntity } from '../database/entities/apartment.entity';
-import { Booking } from './booking.model';
+import { Booking, OutputBooking } from './booking.model';
 
 export type CreateApartmentDTO = {
   number: string;
@@ -16,6 +16,7 @@ export type OutputApartmentDTO = {
   id: string;
   number: string;
   residentName: string;
+  bookings: OutputBooking[];
   isOccupied: boolean;
 };
 
@@ -42,9 +43,11 @@ export class Apartment {
     apartment.#id = data.id;
     apartment.#isOccupied = data.isOccupied;
     apartment.#number = data.number;
+    apartment.#bookings = data.bookings?.map(Booking.mapDb);
     apartment.#residentName = data.residentName;
     apartment.password = data.password;
 
+    console.log(data);
     return apartment;
   }
 
@@ -89,6 +92,7 @@ export class Apartment {
       id: this.#id,
       number: this.#number,
       residentName: this.#residentName,
+      bookings: this.#bookings?.map((b) => b.toJSON()),
       isOccupied: this.#isOccupied,
     };
   }

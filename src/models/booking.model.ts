@@ -10,6 +10,14 @@ export type CreateBookingDTO = {
   userId: string;
 };
 
+export type OutputBooking = {
+  id: string;
+  date: Date;
+  time: ETime;
+  machine: EMachine;
+  userId: string;
+};
+
 export class Booking {
   #id: string;
   #date: Date;
@@ -59,7 +67,7 @@ export class Booking {
     return this.#userId;
   }
 
-  toJSON() {
+  toJSON(): OutputBooking {
     return {
       id: this.#id,
       date: this.#date,
