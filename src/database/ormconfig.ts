@@ -6,9 +6,6 @@ const configProd: DataSourceOptions = {
   type: 'postgres',
   url: 'postgresql://postgres:oNPKySx0C4idz5TXrDtn@containers-us-west-86.railway.app:7802/railway',
   logging: false,
-  ssl: {
-    rejectUnauthorized: true,
-  },
   migrations: ['./migrations/*.js'],
   entities: ['./entities/*.entity.js'],
 };
