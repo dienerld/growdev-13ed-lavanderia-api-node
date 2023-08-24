@@ -7,12 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsnd --respawn --transpile-only ./src/index.ts",
     "build": "tsc",
+    "postbuild": "yarn migration:prod",
     "start": "node ./dist/index.js",
     "lint": "prettier --write ./src/**/*.ts && eslint --fix  ./src/**/*.ts",
     "migration:create": "yarn typeorm migration:create ./src/database/migrations/NomeMigration",
     "migration:run": "yarn typeorm-ts-node-commonjs migration:run -d src/database/typeorm.ts",
     "migration:revert": "yarn typeorm-ts-node-commonjs migration:revert -d src/database/typeorm.ts",
-    "migration:prod": "cross-env NODE_ENV=production yarn typeorm migration:run dist/database/typeorm.js"
+    "migration:prod": "cross-env NODE_ENV=production yarn typeorm migration:run -d dist/database/typeorm.js"
   },
   "keywords": [],
   "author": "",

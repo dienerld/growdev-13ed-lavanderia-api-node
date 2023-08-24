@@ -11,7 +11,7 @@ const config: DataSourceOptions = {
   url: 'postgresql://postgres:oNPKySx0C4idz5TXrDtn@containers-us-west-86.railway.app:7802/railway',
   logging: env !== 'production',
   ssl: {
-    rejectUnauthorized: env === 'production',
+    rejectUnauthorized: false,
   },
   migrations: [
     ApartmentsMigration1692915591824,

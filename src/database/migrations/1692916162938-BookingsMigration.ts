@@ -23,7 +23,7 @@ export class BookingsMigration1692916162938 implements MigrationInterface {
           },
           {
             name: 'apartment_fk',
-            type: 'string',
+            type: 'varchar',
             isNullable: false,
           },
           {
@@ -35,6 +35,14 @@ export class BookingsMigration1692916162938 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             isNullable: false,
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'bookings_apartment_fk',
+            columnNames: ['apartment_fk'],
+            referencedTableName: 'apartments',
+            referencedColumnNames: ['number'],
           },
         ],
       }),
